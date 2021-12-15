@@ -18,7 +18,7 @@ pub fn get_user() -> String {
 
 pub fn get_os() -> String {
     let file = read_to_string("/etc/os-release").expect("Can't get os release data");
-    // Parsing os-release file:
+
     let line: Vec<&str> = file
         .lines()
         .find(|x| x.contains("NAME"))
@@ -26,7 +26,6 @@ pub fn get_os() -> String {
         .split("=")
         .collect();
 
-    // Removing quotes from string:
     let value = &line[1].trim();
     let os = &value[1..value.len()-1];
 
