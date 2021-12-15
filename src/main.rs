@@ -24,10 +24,10 @@ fn main() {
 );
 
     let art_lines = ascii_art.lines();
-    let info_vector = get_info();
+    let info_array = get_info();
 
     for (i, art_line) in art_lines.enumerate() {
-        let info_element = info_vector.get(i);
+        let info_element = info_array.get(i);
         
         if info_element.is_none() {
             println!("{}", art_line);
@@ -37,7 +37,7 @@ fn main() {
     }
 }
 
-fn get_info() -> Vec<String> {
+fn get_info() -> [String; 8] {
     let user = info::get_user();
     let host = info::get_host();
     let os = info::get_os();
@@ -55,7 +55,7 @@ fn get_info() -> Vec<String> {
         format_info(" shell", shell),
         format_info(" uptime", uptime),
         format_info(" memory", memory),
-    ].to_vec();
+    ];
 }
 
 fn format_host(user: String, host: String) -> String {
