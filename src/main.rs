@@ -73,7 +73,7 @@ fn draw_dash(len: usize) -> String {
     let mut dash = String::new();
     
     for _i in 0..len {
-        dash.push_str("─")
+        dash.push_str("─");
     }
 
     return format!("{}{}{}", BOLD, WHITE, dash);
