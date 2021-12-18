@@ -45,20 +45,21 @@ fn get_info() -> [String; 8] {
     let shell = info::get_shell();
     let uptime = info::get_uptime();
     let memory = info::get_memory();
+    let dash_len = user.len() + host.len() + 1;
 
     return [
         "".to_string(),
-        format_host(user, host),
-        draw_dash(),
-        format_info(" os", os),
-        format_info(" kernel", kernel),
-        format_info(" shell", shell),
-        format_info(" uptime", uptime),
-        format_info(" memory", memory),
+        format_host(&user, &host),
+        draw_dash(dash_len),
+        format_info(" os", &os),
+        format_info(" kernel", &kernel),
+        format_info(" shell", &shell),
+        format_info(" uptime", &uptime),
+        format_info(" memory", &memory),
     ];
 }
 
-fn format_host(user: String, host: String) -> String {
+fn format_host(user: &String, host: &String) -> String {
     return format!("{bold}{red}{user}{white}@{bold}{red}{host}", 
         red = RED, 
         user = user, 
@@ -68,12 +69,16 @@ fn format_host(user: String, host: String) -> String {
     );
 }
 
-fn draw_dash() -> String {
-    let dash = "────────────────────────────";
+fn draw_dash(len: usize) -> String {
+    let mut dash = String::new();
+    println!("{}", dash);
+    for _i in 0..len {
+        dash.push_str("─")
+    }
 
     return format!("{}{}{}", BOLD, WHITE, dash);
 }
 
-fn format_info(title: &str, value: String) -> String {
+fn format_info(title: &str, value: &String) -> String {
     return format!("{}{}{}: {}{}", BOLD, GREEN, title, WHITE, value);
 }
