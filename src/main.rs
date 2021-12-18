@@ -71,7 +71,7 @@ fn format_host(user: &String, host: &String) -> String {
 
 fn draw_dash(len: usize) -> String {
     let mut dash = String::new();
-    println!("{}", dash);
+    
     for _i in 0..len {
         dash.push_str("─")
     }
