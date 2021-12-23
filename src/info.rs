@@ -128,5 +128,5 @@ pub fn get_memory() -> String {
     let mem_total = ask_sysctl("hw.physmem") / 1024 / 1024;
     let mem_free = (mem_inactive + mem_unused + mem_cache) * pagesize / 1024 / 1024;
 
-    return format!("{}m / {}m", mem_total, mem_total - mem_free);
+    return format!("{}m / {}m", mem_total - mem_free, mem_total);
 }
