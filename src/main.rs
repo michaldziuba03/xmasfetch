@@ -1,5 +1,3 @@
-mod info;
-
 const RED: &str = "\x1b[31m";
 const GREEN: &str = "\x1b[32m";
 const WHITE: &str = "\x1b[0m";
@@ -24,7 +22,7 @@ fn main() {
 );
 
     let art_lines = ascii_art.lines();
-    let info_array = get_info();
+    let info_array = get_info().unwrap();
 
     for (i, art_line) in art_lines.enumerate() {
         let info_element = info_array.get(i);
@@ -37,17 +35,18 @@ fn main() {
     }
 }
 
-fn get_info() -> [String; 8] {
-    let user = info::get_user();
-    let host = info::get_host();
-    let os = info::get_os();
-    let kernel = info::get_kernel();
-    let shell = info::get_shell();
-    let uptime = info::get_uptime();
-    let memory = info::get_memory();
+fn get_info() -> Option<[String; 8]> {
+    let info = xmasfetch::OSInfo::new();
+    let user = info.user()?;
+    let host = info.hostname()?;
+    let os = info.os()?;
+    let kernel = info.kernel()?;
+    let shell = info.shell()?;
+    let uptime = info.uptime()?;
+    let memory = info.memory()?;
     let dash_len = user.len() + host.len() + 1;
-
-    return [
+    
+    let result =  [
         "".to_string(),
         format_host(&user, &host),
         draw_dash(dash_len),
@@ -57,6 +56,8 @@ fn get_info() -> [String; 8] {
         format_info(" uptime", &uptime),
         format_info(" memory", &memory),
     ];
+
+    Some(result)
 }
 
 fn format_host(user: &String, host: &String) -> String {
