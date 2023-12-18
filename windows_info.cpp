@@ -64,14 +64,7 @@ std::string Windows::username()
     return username;
 }
 
-void Windows::uptime()
+unsigned long long Windows::uptime()
 {
-    using namespace std::chrono;
-    ULONGLONG uptime = GetTickCount64();
-    auto dur = milliseconds(uptime);
-    auto day = duration_cast<days>(dur);
-
-    auto hour = duration_cast<hours>(dur - day);
-
-    std::cout << "Uptime: " << day << " " << hour << std::endl;
+    return GetTickCount64();
 }

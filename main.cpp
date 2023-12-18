@@ -1,4 +1,5 @@
 #include "windows_info.h"
+#include "utils.hxx"
 #include <string>
 #include <iostream>
 
@@ -11,5 +12,5 @@ int main()
     std::cout << "OS: " << win.os() << std::endl;
     std::cout << "Kernel: " << win.kernel() << std::endl;
     std::cout << "Memory: " << mem.used << " MB / " << mem.total << " MB" << std::endl;
-    win.uptime();
+    std::cout << "Uptime: " << prettyUptime<unsigned long long>(win.uptime()) << std::endl;
 }

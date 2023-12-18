@@ -2,8 +2,6 @@
 #include <iostream>
 #include <Wbemidl.h>
 #include <comdef.h>
-#include <locale>
-#include <vector>
 #include <codecvt>
 
 #pragma comment(lib, "wbemuuid.lib")

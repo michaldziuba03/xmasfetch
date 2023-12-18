@@ -21,7 +21,7 @@ public:
     std::string os();
     std::string hostname();
     std::string username();
-    void uptime();
+    unsigned long long uptime();
 };
 
 #endif //XMASFETCH_WINDOWS_INFO_H
