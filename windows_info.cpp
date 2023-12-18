@@ -4,10 +4,21 @@
 #include <windows.h>
 #include <format>
 #include <Lmcons.h>
+#include <chrono>
+
+Windows::Windows()
+{
+    QueryResult res = SendWmiQuery("SELECT Caption, Version, OSArchitecture FROM Win32_OperatingSystem");
+    res.Next();
+
+    caption = res.GetStr(L"Caption");
+    architecture = res.GetStr(L"OSArchitecture");
+    version = res.GetStr(L"Version");
+}
 
 const int MB_DIVIDER = 1024 * 1024;
 
-Memory getMemory()
+Memory Windows::memory()
 {
     MEMORYSTATUSEX ms;
     ms.dwLength = sizeof(ms);
@@ -23,27 +34,19 @@ Memory getMemory()
     };
 }
 
-std::string getKernel()
+std::string Windows::kernel()
 {
-    OSVERSIONINFO os{};
-    os.dwOSVersionInfoSize = sizeof(os);
-    GetVersionEx(&os);
-
-    return std::format("{}.{}.{}", os.dwMajorVersion, os.dwMinorVersion, os.dwBuildNumber);
+    return version;
 }
 
-std::string getWindowsVersion()
+std::string Windows::os()
 {
-    QueryResult res = SendWmiQuery("SELECT Caption, Version FROM Win32_OperatingSystem");
-    res.Next();
-    std::cout << "OS: " << res.GetStr(L"Caption") << std::endl;
-    std::cout << "Kernel: " << res.GetStr(L"Version") << std::endl;
-    return res.GetStr(L"Caption");
+    return std::format("{} [{}]", caption, architecture);
 }
 
 const int NAME_SIZE = UNLEN+1;
 
-std::string getHostname()
+std::string Windows::hostname()
 {
     char hostname[NAME_SIZE];
     DWORD size = NAME_SIZE;
@@ -52,7 +55,7 @@ std::string getHostname()
     return hostname;
 }
 
-std::string getUsername()
+std::string Windows::username()
 {
     char username[NAME_SIZE];
     DWORD size = NAME_SIZE;
@@ -61,7 +64,14 @@ std::string getUsername()
     return username;
 }
 
-ULONGLONG getUptime()
+void Windows::uptime()
 {
-    return GetTickCount64();
+    using namespace std::chrono;
+    ULONGLONG uptime = GetTickCount64();
+    auto dur = milliseconds(uptime);
+    auto day = duration_cast<days>(dur);
+
+    auto hour = duration_cast<hours>(dur - day);
+
+    std::cout << "Uptime: " << day << " " << hour << std::endl;
 }

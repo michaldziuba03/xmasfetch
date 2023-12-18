@@ -4,10 +4,12 @@
 
 int main()
 {
-    std::string hostname = getHostname();
-    std::string os = getWindowsVersion();
+    Windows win;
+    Memory mem = win.memory();
 
-    std::cout << os << std::endl;
-    std::cout << hostname << std::endl;
-    return 0;
+    std::cout << win.username() << "@" << win.hostname() << std::endl;
+    std::cout << "OS: " << win.os() << std::endl;
+    std::cout << "Kernel: " << win.kernel() << std::endl;
+    std::cout << "Memory: " << mem.used << " MB / " << mem.total << " MB" << std::endl;
+    win.uptime();
 }
