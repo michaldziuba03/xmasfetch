@@ -3,7 +3,8 @@
 # Xmasfetch
 Yet another system information fetching tool written in C++.
 
-![image](https://github.com/michaldziuba03/xmasfetch/assets/43048524/bbb3c35a-a749-4126-b53b-600070e4a77f)
+![image](https://github.com/michaldziuba03/xmasfetch/assets/43048524/432e3254-68ee-44a1-91e0-391e481eb145)
+
 
 > Current state
 
