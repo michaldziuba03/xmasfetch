@@ -7,4 +7,5 @@ add_executable(xmasfetch main.cpp
         wmi.hxx
         windows_info.cpp
         windows_info.h
-        utils.hxx)
+        utils.hxx
+        ascii.h)

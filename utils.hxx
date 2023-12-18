@@ -3,7 +3,7 @@
 #include <chrono>
 #include <format>
 
-std::string formatDuration(int durCount, const std::string& durName)
+std::string formatDuration(unsigned int durCount, const std::string& durName)
 {
     if(durCount > 1) {
         return std::format("{} {}s ", durCount, durName);
@@ -36,4 +36,21 @@ std::string prettyUptime(T uptime)
     }
 
     return prettyStr;
+}
+
+inline std::string prettyMemory(unsigned int used, unsigned int total)
+{
+    return std::format("{} MB / {} MB", used, total);
+}
+
+std::string separator(const std::string&  sym, unsigned int len)
+{
+    std::string sep;
+
+    for (int i = 0; i < len; ++i)
+    {
+        sep.append(sym);
+    }
+
+    return sep;
 }
