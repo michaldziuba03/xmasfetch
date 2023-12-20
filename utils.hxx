@@ -1,19 +1,18 @@
 #pragma once
 #include <iostream>
 #include <chrono>
-#include <format>
 
 std::string formatDuration(unsigned int durCount, const std::string& durName)
 {
-    if(durCount > 1) {
-        return std::format("{} {}s ", durCount, durName);
+    if(durCount > 1)
+    {
+        return std::to_string(durCount) + " " + durName + "s ";
     }
 
-    return std::format("{} {} ", durCount, durName);
+    return std::to_string(durCount) + " " + durName + " ";
 }
 
-template<typename T>
-std::string prettyUptime(T uptime)
+std::string prettyUptime(unsigned long uptime)
 {
     using namespace std::chrono;
     auto ms = milliseconds(uptime);
@@ -23,16 +22,24 @@ std::string prettyUptime(T uptime)
 
     std::string prettyStr;
 
-    if (day.count()) {
+    if (day.count())
+    {
         prettyStr.append(formatDuration(day.count(), "day"));
     }
 
-    if (hour.count()) {
+    if (hour.count())
+    {
         prettyStr.append(formatDuration(hour.count(), "hour"));
     }
 
-    if (min.count()) {
+    if (min.count())
+    {
         prettyStr.append(formatDuration(min.count(), "minute"));
+    }
+    else if (prettyStr.empty())
+    {
+        auto sec = duration_cast<seconds>(ms);
+        prettyStr.append(formatDuration(sec.count(), "second"));
     }
 
     return prettyStr;
@@ -40,7 +47,7 @@ std::string prettyUptime(T uptime)
 
 inline std::string prettyMemory(unsigned int used, unsigned int total)
 {
-    return std::format("{} MB / {} MB", used, total);
+    return std::to_string(used) + " MB / " + std::to_string(total) + "MB";
 }
 
 std::string separator(const std::string&  sym, unsigned int len)

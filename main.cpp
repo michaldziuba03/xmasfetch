@@ -1,26 +1,14 @@
-#include "windows_info.h"
-#include "utils.hxx"
 #include "ascii.h"
 #include <string>
 #include <iostream>
+#include <sstream>
+#include "info.h"
 
 const char* DELIMITER = "   ";
 
 int main()
 {
-    Windows win;
-    Memory mem = win.memory();
-
-    std::vector<std::string> sysInfo;
-
-    std::string nameAndHost = std::format("{}@{}", win.username(), win.hostname());
-    sysInfo.push_back(nameAndHost);
-    sysInfo.push_back(separator("-", nameAndHost.length()));
-    sysInfo.push_back(std::format("OS: {}", win.os()));
-    sysInfo.push_back(std::format("Kernel: {}", win.kernel()));
-    sysInfo.push_back(std::format("Memory: {}", prettyMemory(mem.used, mem.total)));
-    sysInfo.push_back(std::format("Uptime: {}", prettyUptime<unsigned long long>(win.uptime())));
-
+    std::vector<std::string> sysInfo = getInfo();
     std::istringstream f(ASCII);
     std::string line;
 
@@ -28,11 +16,11 @@ int main()
     size_t maxLen = 0;
 
     while (std::getline(f, line)) {
-        maxLineLen = max(maxLineLen, line.length());
+        maxLineLen = std::max(maxLineLen, line.length());
         ++maxLen;
     }
 
-    maxLen = max(maxLen, sysInfo.size());
+    maxLen = std::max(maxLen, sysInfo.size());
 
     std::istringstream f2(ASCII);
     for (int i = 0; i < maxLen; ++i)

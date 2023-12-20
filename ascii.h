@@ -1,3 +1,5 @@
+#pragma once
+
 const char* ASCII = R"(      /\
      /\*\
     /\O\*\
