@@ -47,7 +47,7 @@ std::string prettyUptime(unsigned long uptime)
 
 inline std::string prettyMemory(unsigned int used, unsigned int total)
 {
-    return std::to_string(used) + " MB / " + std::to_string(total) + "MB";
+    return std::to_string(used) + " MB / " + std::to_string(total) + " MB";
 }
 
 std::string separator(const std::string&  sym, unsigned int len)

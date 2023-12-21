@@ -9,6 +9,7 @@ struct Memory
 
 class Linux
 {
+private:
 public:
     Memory memory();
     std::string kernel();
