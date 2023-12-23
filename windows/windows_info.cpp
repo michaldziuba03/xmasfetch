@@ -44,6 +44,11 @@ std::string Windows::os()
 
 const int NAME_SIZE = UNLEN+1;
 
+std::string Windows::shell()
+{
+    return "";
+}
+
 std::string Windows::hostname()
 {
     char hostname[NAME_SIZE];

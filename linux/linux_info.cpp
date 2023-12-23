@@ -67,12 +67,21 @@ std::string Linux::hostname()
     return os.nodename;
 }
 
+
 std::string Linux::username()
 {
     uid_t uid = getuid();
     passwd *pw = getpwuid(uid);
 
     return pw->pw_name;
+}
+
+std::string Linux::shell()
+{
+    uid_t uid = getuid();
+    passwd *pw = getpwuid(uid);
+
+    return pw->pw_shell;
 }
 
 const int MB_DIVIDER = 1024;

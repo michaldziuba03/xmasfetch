@@ -16,5 +16,6 @@ public:
     std::string os();
     std::string hostname();
     std::string username();
+    std::string shell();
     unsigned long long uptime();
 };

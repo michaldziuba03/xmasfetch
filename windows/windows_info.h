@@ -18,6 +18,7 @@ public:
     Memory memory();
     std::string kernel();
     std::string os();
+    std::string shell();
     std::string hostname();
     std::string username();
     unsigned long long uptime();

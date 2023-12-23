@@ -39,8 +39,14 @@ std::vector<std::string> getInfo()
     sysInfo.push_back(parseColor("$2" + separator("-", separatorLen)));
     sysInfo.push_back(keyValue("OS", info.os()));
     sysInfo.push_back(keyValue("Kernel", info.kernel()));
-    sysInfo.push_back(keyValue("Memory", prettyMemory(mem.used, mem.total)));
+    std::string shell = info.shell();
+    if (!shell.empty())
+    {
+        sysInfo.push_back(keyValue("Shell", shell));
+    }
+
     sysInfo.push_back(keyValue("Uptime", prettyUptime(info.uptime())));
+    sysInfo.push_back(keyValue("Memory", prettyMemory(mem.used, mem.total)));
 
     std::string ansiColors;
 
