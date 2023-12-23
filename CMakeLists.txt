@@ -7,7 +7,9 @@ set(XMASFETCH_SRC
         utils.hxx
         ascii.h
         info.cpp
-        info.h)
+        info.h
+        colors.cpp
+        colors.h)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     list(APPEND XMASFETCH_SRC

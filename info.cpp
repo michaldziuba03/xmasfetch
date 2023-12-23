@@ -1,6 +1,7 @@
 #include "info.h"
 #include <vector>
 #include "utils.hxx"
+#include "colors.h"
 
 #ifdef _WIN32
 #include "windows/windows_info.h"
@@ -9,6 +10,11 @@
 #ifdef __linux__
 #include "linux/linux_info.h"
 #endif
+
+std::string keyValue(const std::string& key, const std::string& value)
+{
+    return parseColor("$0"+key+"$5: $2" + value);
+}
 
 std::vector<std::string> getInfo()
 {
@@ -24,13 +30,27 @@ std::vector<std::string> getInfo()
     Memory mem = info.memory();
 #endif
 
-    std::string nameAndHost = info.username() + "@" + info.hostname();
+    const std::string username = info.username();
+    const std::string hostname = info.hostname();
+    const size_t separatorLen = username.length() + hostname.length() + 1;
+
+    std::string nameAndHost = parseColor("$1" + info.username() + "$5@$1" + info.hostname());
     sysInfo.push_back(nameAndHost);
-    sysInfo.push_back(separator("-", nameAndHost.length()));
-    sysInfo.push_back("OS: " + info.os());
-    sysInfo.push_back("Kernel: " + info.kernel());
-    sysInfo.push_back("Memory: " + prettyMemory(mem.used, mem.total));
-    sysInfo.push_back("Uptime: " + prettyUptime(info.uptime()));
+    sysInfo.push_back(parseColor("$2" + separator("-", separatorLen)));
+    sysInfo.push_back(keyValue("OS", info.os()));
+    sysInfo.push_back(keyValue("Kernel", info.kernel()));
+    sysInfo.push_back(keyValue("Memory", prettyMemory(mem.used, mem.total)));
+    sysInfo.push_back(keyValue("Uptime", prettyUptime(info.uptime())));
+
+    std::string ansiColors;
+
+    for (int i = 40; i < 48; ++i)
+    {
+        ansiColors += ("\x1b[" + std::to_string(i) + "m   ");
+    }
+
+    sysInfo.emplace_back(" ");
+    sysInfo.push_back(ansiColors + "\x1b[49m");
 
     return sysInfo;
 }

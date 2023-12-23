@@ -1,32 +1,19 @@
 #pragma once
 #include <string>
 #include <sstream>
+#include <iostream>
+#include <vector>
 
-const char* ASCII = R"(      /\
-     /\*\
-    /\O\*\
-   /*/\/0/\
-  /\O\/\*\/\
- /\*\/\*\/\/\
-/\O\/\/*/\/O/\
-    \____/
-)";
-
-struct AsciiLogo
-{
-public:
-    size_t width = 0;
-    size_t height = 0;
-
-    explicit AsciiLogo(const std::string& ascii)
-    {
-        std::istringstream logo(ascii);
-        std::string line;
-
-        while (std::getline(logo, line))
-        {
-            width = std::max(width, line.length());
-            ++height;
-        }
-    }
+const std::string ASCII_TREE[] = {
+        R"(      $2**      )",
+        R"(      $0/\      )",
+        R"(     $0/\$2*$0\     )",
+        R"(    $0/\$4o$0\*\    )",
+        R"(   $0/*/\/$1o$0/\   )",
+        R"(  $0/\$3o$0\/\$2*$0\/\  )",
+        R"( $0/\$2*$0\/\*\/\/\ )",
+        R"($0/\$1o$0\/\/$2*$0/\/$1o$0/\)",
+        R"(    $2\____/    )",
 };
+
+const size_t ASCII_TREE_SIZE = std::ssize(ASCII_TREE);
