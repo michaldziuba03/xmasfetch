@@ -2,4 +2,4 @@
 #include <vector>
 #include <string>
 
-std::vector<std::string> getInfo();
+std::vector<std::string> fetchInfo();

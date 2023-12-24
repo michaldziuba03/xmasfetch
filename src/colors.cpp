@@ -1,4 +1,17 @@
 #include "colors.h"
+#ifdef _WIN32
+#include <Windows.h>
+#define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
+
+void win32_enableAnsi()
+{
+    DWORD dwMode;
+    HANDLE hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+    GetConsoleMode(hOutput, &dwMode);
+    dwMode |= ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    SetConsoleMode(hOutput, dwMode);
+}
+#endif
 
 std::string colors[] = {
         C_RESET,
@@ -12,7 +25,13 @@ std::string colors[] = {
         C_WHITE,
 };
 
-std::string parseColor(std::string text)
+inline unsigned int charToDigit(char c)
+{
+    return c - '0';
+}
+
+// replace color placeholder like $1. $2 with ansi sequence
+std::string colorize(std::string text)
 {
     std::string coloredText;
     int offset = 0;
@@ -23,7 +42,7 @@ std::string parseColor(std::string text)
             ++offset;
             if (text[offset] >= '0' && text[offset] <= '9')
             {
-                size_t colorIdx = text[offset] - '0';
+                size_t colorIdx = charToDigit(text[offset]);
                 coloredText += colors[colorIdx];
                 ++offset;
                 continue;
@@ -35,4 +54,16 @@ std::string parseColor(std::string text)
     }
 
     return coloredText;
+}
+
+std::string termColors()
+{
+    std::string ansiSequences;
+
+    for (int i = 40; i < 48; ++i)
+    {
+        ansiSequences += ("\x1b[" + std::to_string(i) + "m   ");
+    }
+
+    return ansiSequences + C_RESET;
 }

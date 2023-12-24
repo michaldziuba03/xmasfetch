@@ -4,12 +4,13 @@ project(xmasfetch)
 set(CMAKE_CXX_STANDARD 20)
 
 set(XMASFETCH_SRC
-        src/utils.hxx
+        src/utils.cpp
         src/ascii.h
         src/info.cpp
         src/info.h
         src/colors.cpp
-        src/colors.h)
+        src/colors.h
+        src/utils.h)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     list(APPEND XMASFETCH_SRC

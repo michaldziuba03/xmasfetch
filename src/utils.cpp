@@ -1,10 +1,5 @@
-#pragma once
+#include "utils.h"
 #include <chrono>
-
-#define DUR_DAY "day"
-#define DUR_HOUR "hour"
-#define DUR_MINUTE "minute"
-#define DUR_SECOND "second"
 
 std::string formatDuration(unsigned int durCount, const std::string& durName)
 {
@@ -49,7 +44,7 @@ std::string prettyUptime(unsigned long uptime)
     return prettyStr;
 }
 
-inline std::string prettyMemory(unsigned int used, unsigned int total)
+std::string prettyMemory(unsigned int used, unsigned int total)
 {
     return std::to_string(used) + " MB / " + std::to_string(total) + " MB";
 }
