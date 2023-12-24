@@ -6,9 +6,11 @@
 #include "info.h"
 #include <regex>
 
+#define DELIMITER "  "
+
 #ifdef _WIN32
 
-#include <windows.h>
+#include <Windows.h>
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
 
 void activateVirtualTerminal()
@@ -20,10 +22,6 @@ void activateVirtualTerminal()
     SetConsoleMode(hOutput, dwMode);
 }
 #endif
-
-const char* RESET_COLOR = "\033[0m";
-const char* DELIMITER = "  ";
-
 
 const std::regex colorExp("\\$[0-9]");
 size_t getLineWidth(const std::string& line)
@@ -51,9 +49,9 @@ int main()
 
         if (i < sysInfo.size())
         {
-            std::cout << RESET_COLOR << DELIMITER << sysInfo[i];
+            std::cout << C_RESET << DELIMITER << sysInfo[i];
         }
 
-        std::cout << parseColor("$5") << std::endl;
+        std::cout << C_RESET << std::endl;
     }
 }

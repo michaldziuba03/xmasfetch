@@ -1,13 +1,15 @@
 #include "colors.h"
-#include <iostream>
 
 std::string colors[] = {
-        "\x1b[32;1m",
-        "\x1b[31;1m",
-        "\x1b[33;1m",
-        "\x1b[34;1m",
-        "\x1b[35;1m",
-        "\x1b[39;1m",
+        C_RESET,
+        C_BLACK,
+        C_RED,
+        C_GREEN,
+        C_YELLOW,
+        C_BLUE,
+        C_MAGENTA,
+        C_CYAN,
+        C_WHITE,
 };
 
 std::string parseColor(std::string text)
