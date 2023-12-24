@@ -8,7 +8,7 @@
 
 #ifdef _WIN32
 
-#include <windows.h>
+#include <Windows.h>
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
 
 void activateVirtualTerminal()
