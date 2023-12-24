@@ -1,6 +1,5 @@
 #pragma once
 
-// ANSI colors definition:
 #define C_RESET "\x1b[0m"
 #define C_BLACK "\x1b[30;1m"
 #define C_RED "\x1b[31;1m"

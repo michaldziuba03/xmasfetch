@@ -6,7 +6,7 @@
 
 #pragma comment(lib, "wbemuuid.lib")
 
-void UninitWmi()
+void WMICoUninitialize()
 {
     CoUninitialize();
 }
@@ -42,7 +42,7 @@ BOOL CALLBACK InitHandleFunction (PINIT_ONCE InitOnce, PVOID Parameter, PVOID *l
         std::cout << "Failed to initialize security. "
                   << "Error code = 0x"
                   << std::hex << hres << std::endl;
-        CoUninitialize();
+        WMICoUninitialize();
         return FALSE;
     }
 
@@ -59,7 +59,7 @@ BOOL CALLBACK InitHandleFunction (PINIT_ONCE InitOnce, PVOID Parameter, PVOID *l
         std::cout << "Failed to create IWbemLocator object. "
                   << "Error code = 0x"
                   << std::hex << hres << std::endl;
-        CoUninitialize();
+        WMICoUninitialize();
         return FALSE;
     }
 
@@ -81,7 +81,7 @@ BOOL CALLBACK InitHandleFunction (PINIT_ONCE InitOnce, PVOID Parameter, PVOID *l
         std::cout << "Could not connect. Error code = 0x"
                   << std::hex << hres << std::endl;
         pLoc->Release();
-        CoUninitialize();
+        WMICoUninitialize();
         return FALSE;
     }
 
@@ -102,13 +102,13 @@ BOOL CALLBACK InitHandleFunction (PINIT_ONCE InitOnce, PVOID Parameter, PVOID *l
                   << std::hex << hres << std::endl;
         pSvc->Release();
         pLoc->Release();
-        CoUninitialize();
+        WMICoUninitialize();
         return FALSE;
     }
 
     *lpContext = pSvc;
     pLoc->Release();
-    atexit(UninitWmi); // make sure that connection is closed when application closes
+    atexit(WMICoUninitialize); // make sure that connection is closed when application closes
 
     return TRUE;
 }
@@ -122,25 +122,25 @@ std::string wstring_to_string(const std::wstring& wstring)
     return converter.to_bytes(wstring);
 }
 
-class QueryResult
+class WMIQueryResult
 {
     IEnumWbemClassObject* pEnumerator;
     IWbemClassObject* clsObj = nullptr;
     int count = 0;
 
 public:
-    explicit QueryResult(IEnumWbemClassObject* pEnum)
+    explicit WMIQueryResult(IEnumWbemClassObject* pEnum)
     {
         pEnumerator = pEnum;
     }
 
-    ~QueryResult()
+    ~WMIQueryResult()
     {
         pEnumerator->Release();
         if (clsObj) clsObj->Release();
     }
 
-    int Count()
+    int Size()
     {
         return count;
     }
@@ -166,7 +166,7 @@ public:
     }
 };
 
-QueryResult SendWmiQuery(const std::string& query)
+WMIQueryResult SendWMIQuery(const std::string& query)
 {
     PVOID lpContext;
     BOOL  bStatus;
@@ -199,5 +199,5 @@ QueryResult SendWmiQuery(const std::string& query)
 
     pSvc->Release();
 
-    return QueryResult(pEnumerator);
+    return WMIQueryResult(pEnumerator);
 }

@@ -6,7 +6,7 @@
 
 Windows::Windows()
 {
-    QueryResult res = SendWmiQuery("SELECT Caption, Version, OSArchitecture FROM Win32_OperatingSystem");
+    WMIQueryResult res = SendWMIQuery("SELECT Caption, Version, OSArchitecture FROM Win32_OperatingSystem");
     res.Next();
 
     caption = res.GetStr(L"Caption");

@@ -1,6 +1,11 @@
 #pragma once
 #include <chrono>
 
+#define DUR_DAY "day"
+#define DUR_HOUR "hour"
+#define DUR_MINUTE "minute"
+#define DUR_SECOND "second"
+
 std::string formatDuration(unsigned int durCount, const std::string& durName)
 {
     if(durCount > 1)
@@ -23,22 +28,22 @@ std::string prettyUptime(unsigned long uptime)
 
     if (day.count())
     {
-        prettyStr.append(formatDuration(day.count(), "day"));
+        prettyStr += formatDuration(day.count(), DUR_DAY);
     }
 
     if (hour.count())
     {
-        prettyStr.append(formatDuration(hour.count(), "hour"));
+        prettyStr += formatDuration(hour.count(), DUR_HOUR);
     }
 
     if (min.count())
     {
-        prettyStr.append(formatDuration(min.count(), "minute"));
+        prettyStr += formatDuration(min.count(), DUR_MINUTE);
     }
     else if (prettyStr.empty())
     {
         auto sec = duration_cast<seconds>(ms);
-        prettyStr.append(formatDuration(sec.count(), "second"));
+        prettyStr += formatDuration(sec.count(), DUR_SECOND);
     }
 
     return prettyStr;
