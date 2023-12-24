@@ -36,7 +36,7 @@ std::vector<std::string> getInfo()
 
     std::string nameAndHost = parseColor("$2" + info.username() + "$0@$2" + info.hostname());
     sysInfo.push_back(nameAndHost);
-    sysInfo.push_back(parseColor("$4" + separator("-", separatorLen)));
+    sysInfo.push_back(parseColor("$4" + std::string (separatorLen, '-')));
     sysInfo.push_back(keyValue("OS", info.os()));
     sysInfo.push_back(keyValue("Kernel", info.kernel()));
     std::string shell = info.shell();

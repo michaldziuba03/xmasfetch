@@ -6,6 +6,8 @@
 #include "info.h"
 #include <regex>
 
+#define DELIMITER "  "
+
 #ifdef _WIN32
 
 #include <Windows.h>
@@ -20,9 +22,6 @@ void activateVirtualTerminal()
     SetConsoleMode(hOutput, dwMode);
 }
 #endif
-
-const char* DELIMITER = "  ";
-
 
 const std::regex colorExp("\\$[0-9]");
 size_t getLineWidth(const std::string& line)

@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include <chrono>
 
 std::string formatDuration(unsigned int durCount, const std::string& durName)
@@ -48,16 +47,4 @@ std::string prettyUptime(unsigned long uptime)
 inline std::string prettyMemory(unsigned int used, unsigned int total)
 {
     return std::to_string(used) + " MB / " + std::to_string(total) + " MB";
-}
-
-std::string separator(const std::string&  sym, unsigned int len)
-{
-    std::string sep;
-
-    for (int i = 0; i < len; ++i)
-    {
-        sep.append(sym);
-    }
-
-    return sep;
 }
