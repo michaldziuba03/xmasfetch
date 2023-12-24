@@ -13,7 +13,7 @@
 
 std::string keyValue(const std::string& key, const std::string& value)
 {
-    return parseColor("$0"+key+"$5: $2" + value);
+    return parseColor("$3"+key+"$0: $4" + value);
 }
 
 std::vector<std::string> getInfo()
@@ -34,9 +34,9 @@ std::vector<std::string> getInfo()
     const std::string hostname = info.hostname();
     const size_t separatorLen = username.length() + hostname.length() + 1;
 
-    std::string nameAndHost = parseColor("$1" + info.username() + "$5@$1" + info.hostname());
+    std::string nameAndHost = parseColor("$2" + info.username() + "$0@$2" + info.hostname());
     sysInfo.push_back(nameAndHost);
-    sysInfo.push_back(parseColor("$2" + separator("-", separatorLen)));
+    sysInfo.push_back(parseColor("$4" + separator("-", separatorLen)));
     sysInfo.push_back(keyValue("OS", info.os()));
     sysInfo.push_back(keyValue("Kernel", info.kernel()));
     std::string shell = info.shell();

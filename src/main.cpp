@@ -21,7 +21,6 @@ void activateVirtualTerminal()
 }
 #endif
 
-const char* RESET_COLOR = "\033[0m";
 const char* DELIMITER = "  ";
 
 
@@ -51,9 +50,9 @@ int main()
 
         if (i < sysInfo.size())
         {
-            std::cout << RESET_COLOR << DELIMITER << sysInfo[i];
+            std::cout << C_RESET << DELIMITER << sysInfo[i];
         }
 
-        std::cout << parseColor("$5") << std::endl;
+        std::cout << C_RESET << std::endl;
     }
 }
