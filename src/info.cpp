@@ -11,6 +11,10 @@
 #include "linux/linux_info.h"
 #endif
 
+#ifdef __FreeBSD__
+#include "freebsd/freebsd_info.h"
+#endif
+
 #define EMPTY_LINE " "
 
 std::string keyValue(const std::string& key, const std::string& value)
@@ -28,6 +32,10 @@ std::vector<std::string> fetchInfo()
 
 #ifdef __linux__
     Linux info;
+#endif
+
+#ifdef __FreeBSD__
+    FreeBSD info;
 #endif
     Memory mem = info.memory();
     const std::string username = info.username();

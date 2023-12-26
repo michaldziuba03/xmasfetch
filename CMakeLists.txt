@@ -14,8 +14,18 @@ set(XMASFETCH_SRC
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     list(APPEND XMASFETCH_SRC
+            src/shared/unix.h
+            src/shared/unix.cpp
             src/linux/linux_info.cpp
             src/linux/linux_info.h)
+endif ()
+
+if (CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
+    list(APPEND XMASFETCH_SRC
+            src/shared/unix.h
+            src/shared/unix.cpp
+            src/freebsd/freebsd_info.cpp
+            src/freebsd/freebsd_info.h)
 endif ()
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
