@@ -1,10 +1,7 @@
 #include "linux_info.h"
+#include "../shared/unix.h"
 #include <string>
 #include <fstream>
-#include <sys/utsname.h>
-#include <unistd.h>
-#include <pwd.h>
-#include <iostream>
 
 std::string Linux::kernel()
 {
@@ -57,31 +54,18 @@ std::string Linux::os()
 
 std::string Linux::hostname()
 {
-    utsname os{};
-    int err = uname(&os);
-    if (err == -1)
-    {
-        return "unknown";
-    }
-
-    return os.nodename;
+    return unix_hostname();
 }
 
 
 std::string Linux::username()
 {
-    uid_t uid = getuid();
-    passwd *pw = getpwuid(uid);
-
-    return pw->pw_name;
+    return unix_username();
 }
 
 std::string Linux::shell()
 {
-    uid_t uid = getuid();
-    passwd *pw = getpwuid(uid);
-
-    return pw->pw_shell;
+    return unix_shell();
 }
 
 const int MB_DIVIDER = 1024;
