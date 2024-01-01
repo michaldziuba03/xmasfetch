@@ -13,7 +13,7 @@
 #define C_WHITE "\x1b[37m"
 
 #ifdef _WIN32
-void win32_enableAnsi();
+void win32_enableANSI();
 #endif
 std::string colorize(std::string);
 std::string termColors();

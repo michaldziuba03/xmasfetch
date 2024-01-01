@@ -3,7 +3,7 @@
 #include <string>
 #include <fstream>
 
-std::string Linux::kernel()
+std::string LinuxReadout::kernel()
 {
     std::string kernel;
     std::ifstream osrelease("/proc/sys/kernel/osrelease");
@@ -16,61 +16,30 @@ std::string Linux::kernel()
     return kernel;
 }
 
-std::string Linux::os()
+std::string LinuxReadout::os()
 {
-    const std::string PRETTY_NAME = "PRETTY_NAME=";
-
-    std::ifstream release("/etc/os-release");
-    if (!release.is_open())
-    {
-        return "Unknown Linux";
-    }
-
-    std::string os;
-    std::string line;
-    while(std::getline(release, line) && os.empty())
-    {
-        if (!line.starts_with(PRETTY_NAME))
-        {
-            continue;
-        }
-
-        os = line.substr(PRETTY_NAME.length());
-        if (os.starts_with("\""))
-        {
-            os = os.substr(1);
-        }
-
-        if (os.ends_with("\""))
-        {
-            os.pop_back();
-        }
-    }
-
-    release.close();
-
-    return os;
+    return unix_osrelease("Linux");
 };
 
-std::string Linux::hostname()
+std::string LinuxReadout::hostname()
 {
     return unix_hostname();
 }
 
 
-std::string Linux::username()
+std::string LinuxReadout::username()
 {
     return unix_username();
 }
 
-std::string Linux::shell()
+std::string LinuxReadout::shell()
 {
     return unix_shell();
 }
 
 const int MB_DIVIDER = 1024;
 
-Memory Linux::memory()
+Memory LinuxReadout::memory()
 {
     std::ifstream meminfo("/proc/meminfo");
     if (!meminfo.is_open())
@@ -110,7 +79,7 @@ Memory Linux::memory()
     };
 }
 
-unsigned long long Linux::uptime()
+uint64 LinuxReadout::uptime()
 {
     std::ifstream uptimeFile("/proc/uptime");
     unsigned long long uptime = 0;

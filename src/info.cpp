@@ -27,11 +27,11 @@ std::vector<std::string> fetchInfo()
     std::vector<std::string> sysInfo;
 
 #ifdef _WIN32
-    Windows info;
+    WindowsReadout info;
 #endif
 
 #ifdef __linux__
-    Linux info;
+    LinuxReadout info;
 #endif
 
 #ifdef __FreeBSD__

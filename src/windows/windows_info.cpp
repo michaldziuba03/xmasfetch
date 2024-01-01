@@ -4,7 +4,7 @@
 #include <format>
 #include <lmcons.h>
 
-Windows::Windows()
+WindowsReadout::WindowsReadout()
 {
     WMIQueryResult res = SendWMIQuery("SELECT Caption, Version, OSArchitecture FROM Win32_OperatingSystem");
     res.Next();
@@ -16,7 +16,7 @@ Windows::Windows()
 
 const int MB_DIVIDER = 1024 * 1024;
 
-Memory Windows::memory()
+Memory WindowsReadout::memory()
 {
     MEMORYSTATUSEX ms;
     ms.dwLength = sizeof(ms);
@@ -32,24 +32,24 @@ Memory Windows::memory()
     };
 }
 
-std::string Windows::kernel()
+std::string WindowsReadout::kernel()
 {
     return version;
 }
 
-std::string Windows::os()
+std::string WindowsReadout::os()
 {
     return std::format("{} [{}]", caption, architecture);
 }
 
 const int NAME_SIZE = UNLEN+1;
 
-std::string Windows::shell()
+std::string WindowsReadout::shell()
 {
     return "";
 }
 
-std::string Windows::hostname()
+std::string WindowsReadout::hostname()
 {
     char hostname[NAME_SIZE];
     DWORD size = NAME_SIZE;
@@ -58,7 +58,7 @@ std::string Windows::hostname()
     return hostname;
 }
 
-std::string Windows::username()
+std::string WindowsReadout::username()
 {
     char username[NAME_SIZE];
     DWORD size = NAME_SIZE;
@@ -67,7 +67,7 @@ std::string Windows::username()
     return username;
 }
 
-unsigned long long Windows::uptime()
+uint64 WindowsReadout::uptime()
 {
     return GetTickCount64();
 }
