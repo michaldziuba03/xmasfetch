@@ -10,11 +10,11 @@ class WindowsReadout : public SystemReadout
     std::string version;
 public:
     WindowsReadout();
-    Memory memory();
-    std::string kernel();
-    std::string os();
-    std::string shell();
-    std::string hostname();
-    std::string username();
-    uint64 uptime();
+    Memory memory() override;
+    std::string kernel() override;
+    std::string os() override;
+    std::string shell() override;
+    std::string hostname() override;
+    std::string username() override;
+    uint64 uptime() override;
 };

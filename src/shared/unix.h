@@ -1,8 +1,11 @@
 #pragma once
 #include <string>
 
-std::string unix_hostname();
-std::string unix_username();
-std::string unix_shell();
-std::string unix_kernel();
-std::string unix_osrelease(const std::string&);
+namespace unixReadout {
+    std::string hostname();
+    std::string hostname();
+    std::string username();
+    std::string shell();
+    std::string kernel();
+    std::string osrelease(const std::string&);
+}
