@@ -19,7 +19,7 @@ inline size_t getLineWidth(const std::string& line)
 int main()
 {
 #ifdef _WIN32
-    win32_enableAnsi();
+    win32_enableANSI();
 #endif
     std::vector<std::string> sysInfo = fetchInfo();
     const size_t logoWidth = getLineWidth(ASCII_TREE[0]);

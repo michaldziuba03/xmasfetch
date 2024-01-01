@@ -1,14 +1,8 @@
 #pragma once
 #include <string>
+#include "../shared/declariations.h"
 
-struct Memory
-{
-    unsigned long total;
-    unsigned long used;
-};
-
-
-class FreeBSD
+class FreeBSDReadout : public SystemReadout
 {
 public:
     Memory memory();
@@ -17,5 +11,5 @@ public:
     std::string hostname();
     std::string username();
     std::string shell();
-    unsigned long long uptime();
+    uint64 uptime();
 };

@@ -1,15 +1,8 @@
 #pragma once
 #include <string>
+#include "../shared/declariations.h"
 
-struct Memory
-{
-    unsigned long total;
-    unsigned long used;
-};
-
-class Linux
-{
-private:
+class LinuxReadout : public SystemReadout {
 public:
     Memory memory();
     std::string kernel();
@@ -17,5 +10,5 @@ public:
     std::string hostname();
     std::string username();
     std::string shell();
-    unsigned long long uptime();
+    uint64 uptime();
 };

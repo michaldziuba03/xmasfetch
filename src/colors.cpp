@@ -3,7 +3,7 @@
 #include <Windows.h>
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
 
-void win32_enableAnsi()
+void win32_enableANSI()
 {
     DWORD dwMode;
     HANDLE hOutput = GetStdHandle(STD_OUTPUT_HANDLE);

@@ -1,25 +1,20 @@
 #pragma once
+#include "../shared/declariations.h"
 #include <Windows.h>
 #include <string>
 
-struct Memory
-{
-    ULONGLONG total;
-    ULONGLONG used;
-};
-
-class Windows
+class WindowsReadout : public SystemReadout
 {
     std::string architecture;
     std::string caption;
     std::string version;
 public:
-    Windows();
+    WindowsReadout();
     Memory memory();
     std::string kernel();
     std::string os();
     std::string shell();
     std::string hostname();
     std::string username();
-    unsigned long long uptime();
+    uint64 uptime();
 };
