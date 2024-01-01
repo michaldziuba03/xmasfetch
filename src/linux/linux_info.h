@@ -4,11 +4,11 @@
 
 class LinuxReadout : public SystemReadout {
 public:
-    Memory memory();
-    std::string kernel();
-    std::string os();
-    std::string hostname();
-    std::string username();
-    std::string shell();
-    uint64 uptime();
+    Memory memory() override;
+    std::string kernel() override;
+    std::string os() override;
+    std::string hostname() override;
+    std::string username() override;
+    std::string shell() override;
+    uint64 uptime() override;
 };

@@ -1,7 +1,6 @@
 #include "windows_info.h"
 #include "wmi.hxx"
 #include <Windows.h>
-#include <format>
 #include <lmcons.h>
 
 WindowsReadout::WindowsReadout()
@@ -14,7 +13,7 @@ WindowsReadout::WindowsReadout()
     version = res.GetStr(L"Version");
 }
 
-const int MB_DIVIDER = 1024 * 1024;
+const uint64 MB_DIVIDER = 1024ll * 1024ll;
 
 Memory WindowsReadout::memory()
 {
@@ -22,8 +21,8 @@ Memory WindowsReadout::memory()
     ms.dwLength = sizeof(ms);
     GlobalMemoryStatusEx(&ms);
 
-    ULONGLONG total = ms.ullTotalPhys / MB_DIVIDER;
-    ULONGLONG used = (ms.ullTotalPhys - ms.ullAvailPhys) / MB_DIVIDER;
+    uint64 total = ms.ullTotalPhys / MB_DIVIDER;
+    uint64 used = (ms.ullTotalPhys - ms.ullAvailPhys) / MB_DIVIDER;
 
     return
     {
@@ -39,7 +38,7 @@ std::string WindowsReadout::kernel()
 
 std::string WindowsReadout::os()
 {
-    return std::format("{} [{}]", caption, architecture);
+    return caption + " [" + architecture + "]";
 }
 
 const int NAME_SIZE = UNLEN+1;

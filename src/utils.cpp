@@ -1,6 +1,13 @@
 #include "utils.h"
 #include <chrono>
 
+uint64 unixNow()
+{
+    using namespace std::chrono;
+    const auto timeEpoch = system_clock::now().time_since_epoch();
+    return duration_cast<std::chrono::seconds>(timeEpoch).count();
+}
+
 std::string formatDuration(unsigned int durCount, const std::string& durName)
 {
     if(durCount > 1)
@@ -11,7 +18,7 @@ std::string formatDuration(unsigned int durCount, const std::string& durName)
     return std::to_string(durCount) + " " + durName + " ";
 }
 
-std::string prettyUptime(unsigned long uptime)
+std::string prettyUptime(uint64 uptime)
 {
     using namespace std::chrono;
     auto ms = milliseconds(uptime);

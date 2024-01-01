@@ -18,50 +18,49 @@ std::string LinuxReadout::kernel()
 
 std::string LinuxReadout::os()
 {
-    return unix_osrelease("Linux");
+    return unixReadout::osrelease("Linux");
 };
 
 std::string LinuxReadout::hostname()
 {
-    return unix_hostname();
+    return unixReadout::hostname();
 }
-
 
 std::string LinuxReadout::username()
 {
-    return unix_username();
+    return unixReadout::username();
 }
 
 std::string LinuxReadout::shell()
 {
-    return unix_shell();
+    return unixReadout::shell();
 }
 
-const int MB_DIVIDER = 1024;
+const uint64 MB_DIVIDER = 1024ll;
 
 Memory LinuxReadout::memory()
 {
-    std::ifstream meminfo("/proc/meminfo");
-    if (!meminfo.is_open())
+    std::ifstream memInfo("/proc/meminfo");
+    if (!memInfo.is_open())
     {
         return { 0, 0 };
     }
 
-    unsigned long total = 0;
-    unsigned long available = 0;
+    uint64 total = 0;
+    uint64 available = 0;
 
-    while(meminfo.good())
+    while(memInfo.good())
     {
         std::string key;
-        meminfo >> key;
+        memInfo >> key;
 
         if (key == "MemTotal:")
         {
-            meminfo >> total;
+            memInfo >> total;
         }
         else if (key == "MemAvailable:")
         {
-            meminfo >> available;
+            memInfo >> available;
         }
 
         if (total && available)
@@ -70,7 +69,7 @@ Memory LinuxReadout::memory()
         }
     }
 
-    meminfo.close();
+    memInfo.close();
 
     return
     {
@@ -82,7 +81,7 @@ Memory LinuxReadout::memory()
 uint64 LinuxReadout::uptime()
 {
     std::ifstream uptimeFile("/proc/uptime");
-    unsigned long long uptime = 0;
+    uint64 uptime = 0;
 
     if (uptimeFile.is_open())
     {
@@ -90,5 +89,5 @@ uint64 LinuxReadout::uptime()
         uptimeFile.close();
     }
 
-    return uptime * 1000l; // linux shows uptime in seconds
+    return uptime * 1000ll; // linux shows uptime in seconds
 }
