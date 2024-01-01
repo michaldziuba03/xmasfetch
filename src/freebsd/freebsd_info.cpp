@@ -6,31 +6,6 @@
 #include <iostream>
 #include <sys/sysctl.h>
 
-std::string FreeBSD::kernel()
-{
-    return unix_kernel();
-}
-
-std::string FreeBSD::os()
-{
-    return unix_osrelease("FreeBSD");
-}
-
-std::string FreeBSD::hostname()
-{
-    return unix_hostname();
-}
-
-std::string FreeBSD::username()
-{
-    return unix_username();
-}
-
-std::string FreeBSD::shell()
-{
-    return unix_shell();
-}
-
 unsigned long long readSysctl(const std::string& name)
 {
     unsigned long long val;
@@ -40,9 +15,41 @@ unsigned long long readSysctl(const std::string& name)
     return val;
 }
 
+unsigned long unixNow()
+{
+    const auto timeEpoch = std::chrono::system_clock::now().time_since_epoch();
+    return std::chrono::duration_cast<std::chrono::seconds>(timeEpoch).count();
+}
+
+
+std::string FreeBSDReadout::kernel()
+{
+    return unix_kernel();
+}
+
+std::string FreeBSDReadout::os()
+{
+    return unix_osrelease("FreeBSD");
+}
+
+std::string FreeBSDReadout::hostname()
+{
+    return unix_hostname();
+}
+
+std::string FreeBSDReadout::username()
+{
+    return unix_username();
+}
+
+std::string FreeBSDReadout::shell()
+{
+    return unix_shell();
+}
+
 const unsigned long long MB_DIVIDER = 1024ll * 1024ll;
 
-Memory FreeBSD::memory()
+Memory FreeBSDReadout::memory()
 {
     unsigned long long memTotal = readSysctl("hw.physmem");
     unsigned long long memAvailable = readSysctl("hw.usermem");
@@ -53,13 +60,7 @@ Memory FreeBSD::memory()
     };
 }
 
-unsigned long unixNow()
-{
-    const auto timeEpoch = std::chrono::system_clock::now().time_since_epoch();
-    return std::chrono::duration_cast<std::chrono::seconds>(timeEpoch).count();
-}
-
-unsigned long long FreeBSD::uptime()
+uint64 FreeBSDReadout::uptime()
 {
     unsigned long long bootTime = readSysctl("kern.boottime");
     const auto now = unixNow();

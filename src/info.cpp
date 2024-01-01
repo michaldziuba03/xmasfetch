@@ -35,7 +35,7 @@ std::vector<std::string> fetchInfo()
 #endif
 
 #ifdef __FreeBSD__
-    FreeBSD info;
+    FreeBSDReadout info;
 #endif
     Memory mem = info.memory();
     const std::string username = info.username();
