@@ -1,5 +1,3 @@
-> ⚠️ Early stage of development
-
 # 🎄 Xmasfetch
 Yet another system information fetching tool written in C++ ☃️.
 
